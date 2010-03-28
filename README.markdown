@@ -74,7 +74,7 @@ The `permissions` shell will also let you do:
 
 	cake permissions reset
 
-This will look for available CakePHP shell `tasks` _(named what ?)_ inside each plugin (plus one for the app itself) which set permissions for their own area of responsibility. e.g.:
+This will look for and execute available CakePHP shell `tasks` _(named what ?)_ inside each plugin (plus one for the app itself) which set permissions for their own area of responsibility. e.g.:
 
 *	`{APP}/vendors/shells/tasks/app_permissions`
 	- this shell contains commands to create any application-specific permissions that are not covered by the plugin permissions already. You should customise this if you add your own controllers to the app.
