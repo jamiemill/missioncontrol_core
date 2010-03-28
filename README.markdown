@@ -45,28 +45,17 @@ MissionControl uses CakePHP's standard Auth and ACL components which use a list 
 
 *	__AROs__ represent User Groups. There are six pre-defined groups in MissionControl (managed by the `users` plugin): Guest, User, Contributor, Editor, Administrator and Superadministrator. Each inherits permissions from the previous, (except Superadministrator can always do anything). "Guest" is supposed to represent a non-authenticated anonymous user, but usually Authentication is just turned off for public actions (`$this->Auth->allow(XXX)`)
 
-Because the `acos`, `aros` and `aros_acos` tables are MPTT trees, this means they can't be edited manually in the database because the `lft` and `rght` fields will become invalid. Instead there are a couple of console shell commands that should be used to manage permissions. Before running them please `cd` to the application folder (the one that contains `controllers`, `models` etc).
+Because the `acos`, `aros` and `aros_acos` tables are MPTT trees, this means they can't be edited manually in the database because the `lft` and `rght` fields will become invalid. Instead there are a couple of console shell commands that should be used to manage permissions. Before running them please `cd` to the application directory (the one that contains `webroot` etc).
 
-There is a `permissions` shell in `vendors/shells/permissions.php`. When run on the command-line, it will allow you to perform the following two actions:
+### Managing AROs (which represent user groups)
+
+There is a `permissions` shell in `vendors/shells/permissions.php`. When run on the command-line, it will allow you to perform the following action:
 
 	cake permissions rebuild_aros
 
 This will empty the `aros` table, run through the available user `Group` records and create corresponding AROs for each. Note that individual Users are not represented with AROs, only Groups are, so it is not possible to assign individuals unique permissions.
 
-	cake permissions reset
-
-This will look for available CakePHP shell `tasks` _(named what ?)_, which are each responsible for setting permissions for one part of the app. e.g.:
-
-*	`{APP}/vendors/shells/tasks/app_permissions`
-	- this shell contains commands to create any application-specific permissions that are not covered by the plugin permissions already.
-*	`{APP}/missioncontrol_plugins/core/vendors/shells/tasks/core_permissions.php`
-	- this contains most of the core permissions for MissionControl, essentially gives "Contributor" and above users access to all main page editing actions.
-*	`{APP}/missioncontrol_plugins/file_library/vendors/shells/tasks/file_library_permissions.php`
-	- as above, but for the file library plugin.
-*	`{APP}/missioncontrol_plugins/news/vendors/shells/tasks/news_permissions.php`
-	- as above but for news
-*	`{APP}/missioncontrol_plugins/file_library/vendors/shells/users/users_permissions.php`
-	- this gives administrators access to user-management actions, and all users access to change their password and view their profile etc.
+### Managing ACOs (which represent controller actions)
 
 You should use Mark Story's excellent `acl_extras` plugin shell for managing ACOs. When adding new controller actions, the ACO table will need to be updated to include the new action(s) at the correct point in the tree. You can do so by running:
 
@@ -78,6 +67,27 @@ or
 	
 The latter also removes dead entries caused by deleting or renaming controller methods.
 
+
+### Managing aros_acos linking records (which represent permissions)
+
+The `permissions` shell will also let you do:
+
+	cake permissions reset
+
+This will look for available CakePHP shell `tasks` _(named what ?)_ inside each plugin (plus one for the app itself) which set permissions for their own area of responsibility. e.g.:
+
+*	`{APP}/vendors/shells/tasks/app_permissions`
+	- this shell contains commands to create any application-specific permissions that are not covered by the plugin permissions already. You should customise this if you add your own controllers to the app.
+*	`{APP}/missioncontrol_plugins/core/vendors/shells/tasks/core_permissions.php`
+	- this contains most of the core permissions for MissionControl, essentially gives "Contributor" and above users access to all main page editing actions.
+*	`{APP}/missioncontrol_plugins/file_library/vendors/shells/tasks/file_library_permissions.php`
+	- as above, but for the file library plugin.
+*	`{APP}/missioncontrol_plugins/news/vendors/shells/tasks/news_permissions.php`
+	- as above but for news
+*	`{APP}/missioncontrol_plugins/file_library/vendors/shells/users/users_permissions.php`
+	- this gives administrators access to user-management actions, and all users access to change their password and view their profile etc.
+
+
 ### Adding/Modifying Group IDs:
 
 _If you add new Groups, the constants that hold the group IDs will become invalid, and therefore the permission update console tasks that use them will also be broken... This needs work!_
@@ -85,7 +95,7 @@ _If you add new Groups, the constants that hold the group IDs will become invali
 
 ## More Info
 
-Please see the readme file inside each plugin for more info.
+Please see the readme file inside the other plugins for more info.
 
 
 Copyright (c) 2009-2010 Jamie Mill - jamiermill/a/gmail.com
