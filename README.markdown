@@ -78,13 +78,13 @@ This will look for and execute available CakePHP shell `tasks` _(named what ?)_ 
 
 *	`{APP}/vendors/shells/tasks/app_permissions`
 	- this shell contains commands to create any application-specific permissions that are not covered by the plugin permissions already. You should customise this if you add your own controllers to the app.
-*	`{APP}/missioncontrol_plugins/core/vendors/shells/tasks/core_permissions.php`
+*	`{APP}/plugins/core/vendors/shells/tasks/core_permissions.php`
 	- this contains most of the core permissions for MissionControl, essentially gives "Contributor" and above users access to all main page editing actions.
-*	`{APP}/missioncontrol_plugins/file_library/vendors/shells/tasks/file_library_permissions.php`
+*	`{APP}/plugins/file_library/vendors/shells/tasks/file_library_permissions.php`
 	- as above, but for the file library plugin.
-*	`{APP}/missioncontrol_plugins/news/vendors/shells/tasks/news_permissions.php`
+*	`{APP}/plugins/news/vendors/shells/tasks/news_permissions.php`
 	- as above but for news
-*	`{APP}/missioncontrol_plugins/file_library/vendors/shells/users/users_permissions.php`
+*	`{APP}/plugins/file_library/vendors/shells/users/users_permissions.php`
 	- this gives administrators access to user-management actions, and all users access to change their password and view their profile etc.
 
 

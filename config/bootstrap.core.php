@@ -1,9 +1,5 @@
 <?php
 
-App::build(array(
-	'plugins' => array(APP . 'missioncontrol_plugins' . DS)
-));
-
 Configure::write('MissionControl.version', 8);
 Configure::write('Site.CMSName', 'MissionControl');
 

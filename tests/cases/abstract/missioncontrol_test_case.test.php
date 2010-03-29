@@ -1,6 +1,6 @@
 <?php
 
-require_once(APP.'missioncontrol_plugins'.DS.'core'.DS.'tests'.DS.'cases'.DS.'abstract'.DS.'mission_control_test_case.php');
+require_once(APP.'plugins'.DS.'core'.DS.'tests'.DS.'cases'.DS.'abstract'.DS.'mission_control_test_case.php');
 
 /**
 * Testcase used to iron out the extend testcase used to automatically populate a fixtures variables
