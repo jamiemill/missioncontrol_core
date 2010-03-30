@@ -60,11 +60,11 @@ class CorePagesController extends CoreAppController{
 		if(empty($this->viewVars['data']['CorePage']['view_file'])) {
 			trigger_error('No view file selected.');
 		}
-		
+
 		return $this->render(
 			false,
-			$this->layout,
-			MISSIONCONTROL_PAGE_VIEWS_FOLDER . $this->viewVars['data']['CorePage']['view_file'].'.ctp'
+			null,
+			Configure::read('MissionControl.pageViewsFolder') . $this->viewVars['data']['CorePage']['view_file'].'.ctp'
 		);
 
 	}

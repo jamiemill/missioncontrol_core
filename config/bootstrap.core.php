@@ -13,7 +13,7 @@ define('USER_REGISTER_ACTIVATION_IMMEDIATE','immediate');
 define('USER_REGISTER_ACTIVATION_SELF_ACTIVATE','selfActivate');
 define('USER_REGISTER_ACTIVATION_ADMIN_NOTIFY','adminNotify');
 
-define('MISSIONCONTROL_PAGE_VIEWS_FOLDER', APP . 'views' . DS . 'pages' . DS);
-
+// with trailing slash
+Configure::write('MissionControl.pageViewsFolder', APP . 'views' . DS . 'pages' . DS);
 
 ?>

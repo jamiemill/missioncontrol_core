@@ -45,10 +45,16 @@ $html->addCrumb($data['CorePage']['title']);
 				//$orphaned = Set::extract($search, $data);
 	
 				$orphaned = array();
-				$contentAreasRegex = '/^(' . implode('|',$contentAreas) . ')$/';
-				foreach($data['CoreBlock'] as $block) {
-					if(!preg_match($contentAreasRegex, $block['content_area'])) {
+				if(empty($contentAreas)) {
+					foreach($data['CoreBlock'] as $block) {
 						$orphaned[] = array('CoreBlock'=>$block);
+					}
+				} else {
+					$contentAreasRegex = '/^(' . implode('|',$contentAreas) . ')$/';
+					foreach($data['CoreBlock'] as $block) {
+						if(!preg_match($contentAreasRegex, $block['content_area'])) {
+							$orphaned[] = array('CoreBlock'=>$block);
+						}
 					}
 				}
 	

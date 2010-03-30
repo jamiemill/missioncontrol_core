@@ -62,7 +62,7 @@ class CorePage extends CoreAppModel {
 	    $folder = new Folder;
 	    $viewFiles = array();
 	
-    	$folder->path = MISSIONCONTROL_PAGE_VIEWS_FOLDER;
+    	$folder->path = Configure::read('MissionControl.pageViewsFolder');
 		$files = $folder->read();
 		foreach($files[1] as $file) {
 			$file = str_replace('.ctp', '', $file);
