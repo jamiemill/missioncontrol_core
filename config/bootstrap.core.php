@@ -27,8 +27,8 @@ Configure::write('Site.extraThumbnailSizes', array(
 ));
 
 Configure::write('Robot.fromAddress', 'Example <website@example.com>');
-Configure::write('Robot.SMTP.port',null);
-Configure::write('Robot.SMTP.type',null);
+Configure::write('Robot.SMTP.port',false); // (465 for gmail, false to auto-detect)
+Configure::write('Robot.SMTP.type',false); // (open, ssl, tls or false to autodetect)
 Configure::write('Robot.SMTP.host',null);
 Configure::write('Robot.SMTP.username','website@example.com');
 Configure::write('Robot.SMTP.password',null);
