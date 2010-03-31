@@ -40,7 +40,7 @@ class LanguageHelper extends AppHelper {
 /**
  * Returns a reflexive pronoun from a specified gender slug, e.g. 'himself' or 'herself'.
  *
- * @param  int     $gender The gender slug, e.g 'male'.
+ * @param  int	 $gender The gender slug, e.g 'male'.
  * @param  array   $options Extra options. 
  * @return string
  */
@@ -66,7 +66,7 @@ class LanguageHelper extends AppHelper {
 /**
  * Generates a singular pronoun from the supplied gender slug. Optionally inflects and appends a specified verb. For example, "he thinks", "they think".
  *
- * @param  int     $gender The gender slug, e.g 'male'.
+ * @param  int	 $gender The gender slug, e.g 'male'.
  * @param  array   $options Extra options. 
  * @return string
  */

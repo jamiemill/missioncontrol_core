@@ -18,7 +18,7 @@ class CoreCustomFieldsController extends CoreAppController{
 			} else {
 				$this->_smartFlash(false);
 			}
-	    } else {
+		} else {
 			if(isset($this->params['named']['core_page_id'])) {
 				$this->data['CoreCustomField']['core_page_id'] = $this->params['named']['core_page_id'];
 			}
@@ -35,7 +35,7 @@ class CoreCustomFieldsController extends CoreAppController{
 			} else {
 				$this->_smartFlash(false);
 			}
-	    } else {
+		} else {
 			$this->CoreCustomField->id = $id;
 			$this->data = $this->CoreCustomField->read();
 		}

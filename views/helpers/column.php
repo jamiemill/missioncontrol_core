@@ -14,7 +14,7 @@ TODO - be more intelligent by counting number of words and splitting by nearest 
 
 class ColumnHelper extends AppHelper { 
 
-    var $helpers = array ('Html'); 
+	var $helpers = array ('Html'); 
 
 
 	function single ($text, $column_id, $number_of_cols) {

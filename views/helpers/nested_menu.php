@@ -10,7 +10,7 @@
 
 class NestedMenuHelper extends AppHelper { 
 
-    var $helpers = array ('Html'); 
+	var $helpers = array ('Html'); 
 	var $flatten_result = array(); // holds the results of a flattening operation
 	var $return; // output
 	
@@ -61,7 +61,7 @@ class NestedMenuHelper extends AppHelper {
 	function __generate ($data,$settings = array()) {
 		
 		App::import('Helper','Html');
-	    $html = new HtmlHelper();
+		$html = new HtmlHelper();
 		
 		// defaults that get overwritten by settings
 		$initialDepth = true;

@@ -18,7 +18,7 @@ class CoreBlocksController extends CoreAppController{
 			} else {
 				$this->_smartFlash(false);
 			}
-	    } else {
+		} else {
 			if(isset($this->params['named']['content_area'])) {
 				$this->data['CoreBlock']['content_area'] = $this->params['named']['content_area'];
 			}
@@ -37,14 +37,14 @@ class CoreBlocksController extends CoreAppController{
 
 		if(empty($this->data)) {	
 			$this->{$model}->id = $id;
-	        $this->data = $this->{$model}->read();
-	    } else {
+			$this->data = $this->{$model}->read();
+		} else {
 			if($this->{$model}->save($this->data)) {
 				$this->_smartFlash(true, array('controller'=>'core_pages','action'=>'view',$this->data['CoreBlock']['core_page_id']));
 			} else {
 				$this->_smartFlash(false);
 			}
-	    }
+		}
 		$this->CoreBlock->CorePage->id = $this->data['CoreBlock']['core_page_id'];
 		$pageSlug = $this->CoreBlock->CorePage->field('slug');
 		$this->set('contentAreas', $this->CoreBlock->CorePage->find('contentAreas',array('pageSlug'=>$pageSlug)));
@@ -56,24 +56,24 @@ class CoreBlocksController extends CoreAppController{
 	
 	/**
 	 * Generic 'admin_history' action.
-	 */	     
-    function admin_history($id = null) {
-    	$model = $this->modelNames[0];
+	 */		 
+	function admin_history($id = null) {
+		$model = $this->modelNames[0];
 
 		$this->{$model}->id = $id;
-    	$this->set('data', $this->{$model}->read());
-    	$this->set('revisions', $this->{$model}->revisions());
-    }
+		$this->set('data', $this->{$model}->read());
+		$this->set('revisions', $this->{$model}->revisions());
+	}
 
 	/**
 	 * Generic 'admin_view_revision' action.
-	 */	     
-    function admin_view_revision($id = null, $revisionId = null) {
-    	$model = $this->modelNames[0];
+	 */		 
+	function admin_view_revision($id = null, $revisionId = null) {
+		$model = $this->modelNames[0];
 
 		$this->{$model}->id = $id;
-    	$this->set('revision', $this->{$model}->revisions(array('conditions'=>array('version_id'=>$revisionId))));
-    }
+		$this->set('revision', $this->{$model}->revisions(array('conditions'=>array('version_id'=>$revisionId))));
+	}
 	/**
 	 * Generic 'admin_restore' action.
 	 */
@@ -82,9 +82,9 @@ class CoreBlocksController extends CoreAppController{
 
 		if($this->{$model}->revertTo($versionId)) {	
 			$this->_smartFlash(true, $this->referer());
-	    } else {
+		} else {
 			$this->_smartFlash(false);
-	    }
+		}
 	}
 
 }

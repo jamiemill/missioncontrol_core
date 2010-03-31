@@ -59,10 +59,10 @@ class CorePage extends CoreAppModel {
 	
 	function __findViewFiles() {
 
-	    $folder = new Folder;
-	    $viewFiles = array();
+		$folder = new Folder;
+		$viewFiles = array();
 	
-    	$folder->path = Configure::read('MissionControl.pageViewsFolder');
+		$folder->path = Configure::read('MissionControl.pageViewsFolder');
 		$files = $folder->read();
 		foreach($files[1] as $file) {
 			$file = str_replace('.ctp', '', $file);
@@ -75,18 +75,18 @@ class CorePage extends CoreAppModel {
 	
 	function __findLayoutFiles() {
 
-	    $folder = new Folder;
+		$folder = new Folder;
 	 	$layoutFiles = array();
-	    
-	    foreach(App::path('views') as $viewPath) {
-	    	$folder->path = $viewPath . 'layouts';
+		
+		foreach(App::path('views') as $viewPath) {
+			$folder->path = $viewPath . 'layouts';
 			$files = $folder->read();
 		
 			foreach($files[1] as $file) {
 				$file = str_replace('.ctp', '', $file);
 				$layoutFiles[$file] = $file;
 			}
-	    }
+		}
 		return $layoutFiles;	
 	}
 	
@@ -100,12 +100,12 @@ class CorePage extends CoreAppModel {
 		if(!in_array($page['CorePage']['layout_file'],$this->__findLayoutFiles())) {
 			return false;
 		}
-	    $layout = $this->requestAction('/admin/core/core_pages/layout/'.$pageSlug);
-	    preg_match_all('/\{\{(?P<contentAreas>[a-z1-9\-_]+)\}\}/', $layout, $matches);
+		$layout = $this->requestAction('/admin/core/core_pages/layout/'.$pageSlug);
+		preg_match_all('/\{\{(?P<contentAreas>[a-z1-9\-_]+)\}\}/', $layout, $matches);
 		if(empty($matches['contentAreas'])) {
 			return array();
 		}
-	    return array_combine($matches['contentAreas'], $matches['contentAreas']);
+		return array_combine($matches['contentAreas'], $matches['contentAreas']);
 	}
 }
 ?>

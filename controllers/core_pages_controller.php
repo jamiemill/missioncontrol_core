@@ -10,7 +10,7 @@ class CorePagesController extends CoreAppController{
 		$model = $this->modelNames[0];
 		
 		$this->set('data',$this->CorePage->find('threaded',array('order'=>array('CorePage.lft'))));
-    }
+	}
 	
 	function view($slug = null,$forLayout = false) {
 		$model = $this->modelNames[0];

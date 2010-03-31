@@ -84,7 +84,7 @@ class CoreAppController extends AppController {
 	}
 	
 
-    function view($id = null) {
+	function view($id = null) {
 		$model = $this->modelNames[0];
 		
 		if($id) {
@@ -95,16 +95,16 @@ class CoreAppController extends AppController {
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('data', $item);
-    }
+	}
 	
 /**
  * Generic 'admin_index' action.
- */	    
-    function admin_index() {
+ */		
+	function admin_index() {
 		$model = $this->modelNames[0];
 		
 		$this->set('data', $this->paginate());
-    }
+	}
 	
 	function admin_add() {
 		$model = $this->modelNames[0];
@@ -115,8 +115,8 @@ class CoreAppController extends AppController {
 			} else {
 				$this->_smartFlash(false);
 			}
-	    }
-	    
+		}
+		
 		$this->_findLists($model);
 	}
 	
@@ -125,19 +125,19 @@ class CoreAppController extends AppController {
 		
 		if(empty($this->data)) {	
 			$this->{$model}->id = $id;
-	        $this->data = $this->{$model}->read();
-	    } else {
+			$this->data = $this->{$model}->read();
+		} else {
 			if($this->{$model}->save($this->data)) {
 				$this->_smartFlash(true,array('action'=>'view',$this->{$model}->id));
 			} else {
 				$this->_smartFlash(false);
 			}
-	    }
+		}
 		$this->set('data', $this->{$model}->findById($id));	
 		$this->_findLists($model);
 	}
 	
-    function admin_view($id = null) {
+	function admin_view($id = null) {
 		$model = $this->modelNames[0];
 		
 		if($id) {
@@ -148,7 +148,7 @@ class CoreAppController extends AppController {
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('data', $item);	
-    }
+	}
 
 	
 /**

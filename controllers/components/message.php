@@ -9,11 +9,11 @@ class MessageComponent extends Object {
 	 * Not sure we need this component, might be simpler to do everything in the controller?
 	 * 
 	 */
-    
-    var $components = array('SwiftEmail');
-    var $uses = array();
-    
-    function startup(&$controller) {
+	
+	var $components = array('SwiftEmail');
+	var $uses = array();
+	
+	function startup(&$controller) {
 		$this->controller =& $controller;
 		
 		/**
@@ -39,7 +39,7 @@ class MessageComponent extends Object {
 		
 		$this->SwiftEmail->delivery = 'smtp';
 		$this->SwiftEmail->sendAs = 'both';
-    }
+	}
 
 	/**
 	* Includes verify email link, but also functions as welcome email.
@@ -50,7 +50,7 @@ class MessageComponent extends Object {
 	* 		- for this ensure 'password' is set in the options array to their unencrypted password
 	*/
 
-    function sendActivationEmail($data, $options=array()) {
+	function sendActivationEmail($data, $options=array()) {
 		$defaults = array(
 			'password'=>false
 		);
@@ -58,55 +58,55 @@ class MessageComponent extends Object {
 
 		$this->SwiftEmail->smtpOptions = $this->robotSmtpOptions;
 		
-        $this->SwiftEmail->to = $data['User']['email'];
-        $this->SwiftEmail->from = Configure::read('Robot.fromAddress');
+		$this->SwiftEmail->to = $data['User']['email'];
+		$this->SwiftEmail->from = Configure::read('Robot.fromAddress');
 		$this->SwiftEmail->subject = Configure::read('Site.title').' Account Activation';
 		$this->SwiftEmail->template = 'activation';
 		
 		$this->controller->set('data',$data);
 		$this->controller->set('password',$settings['password']);
-        if ($this->SwiftEmail->send()) {
-        	return true;
-        }
+		if ($this->SwiftEmail->send()) {
+			return true;
+		}
 		//trigger_error('Error sending email:'.$this->SwiftEmail->smtpError);
 		$this->log('Error sending email:'.$this->SwiftEmail->smtpError,LOG_ERROR);
-        return false;
-    }
+		return false;
+	}
 
-    function sendAdministratorActivationEmail($options) {
-    	
+	function sendAdministratorActivationEmail($options) {
+		
 		$this->SwiftEmail->smtpOptions = $this->robotSmtpOptions;
 		
-        $this->SwiftEmail->to = Configure::read('Site.emailsTo');
-        $this->SwiftEmail->from = Configure::read('Robot.fromAddress');
+		$this->SwiftEmail->to = Configure::read('Site.emailsTo');
+		$this->SwiftEmail->from = Configure::read('Robot.fromAddress');
 		$this->SwiftEmail->subject = Configure::read('Site.title').' : New Account for Approval';
 		$this->SwiftEmail->template = 'administrator_activation';
 		
 		$this->controller->set('data',$options);
-        if ($this->SwiftEmail->send()) {
-        	return true;
-        }
+		if ($this->SwiftEmail->send()) {
+			return true;
+		}
 		//trigger_error('Error sending email:'.$this->SwiftEmail->smtpError);
 		$this->log('Error sending email:'.$this->SwiftEmail->smtpError,LOG_ERROR);
-        return false;
-    }
+		return false;
+	}
 
-    function sendPasswordResetEmail($options) {
-    	
+	function sendPasswordResetEmail($options) {
+		
 		$this->SwiftEmail->smtpOptions = $this->robotSmtpOptions;
 		
-        $this->SwiftEmail->to = $options['to'];
-        $this->SwiftEmail->from = Configure::read('Robot.fromAddress');
+		$this->SwiftEmail->to = $options['to'];
+		$this->SwiftEmail->from = Configure::read('Robot.fromAddress');
 		$this->SwiftEmail->subject = Configure::read('Site.title').' Password Reset';
 		$this->SwiftEmail->template = 'password_reset';
 		
 		$this->controller->set('data',$options);
-        if ($this->SwiftEmail->send()) {
-        	return true;
-        }
+		if ($this->SwiftEmail->send()) {
+			return true;
+		}
 		//trigger_error('Error sending email:'.$this->SwiftEmail->smtpError);
 		$this->log('Error sending email:'.$this->SwiftEmail->smtpError,LOG_ERROR);
-        return false;
-    }
+		return false;
+	}
 }
 ?>

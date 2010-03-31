@@ -14,21 +14,21 @@
  * Redistributions of files must retain the above copyright notice.
  * 
  * @filesource
- * @copyright            Copyright (c) 2008, Marcin Domanski
- * @link                 www.kabturek.info
- * @link                 http://www.assembla.com/wiki/show/swift_email_component
- * @package              
- * @subpackage           projects.swift_email.controllers.components
- * @version              0.2
- * @modifiedBy           kabturek
- * @lastModified         Wed Jun 18 17:52:54 CEST 2008
- * @license              http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @copyright			Copyright (c) 2008, Marcin Domanski
+ * @link				 www.kabturek.info
+ * @link				 http://www.assembla.com/wiki/show/swift_email_component
+ * @package			  
+ * @subpackage		   projects.swift_email.controllers.components
+ * @version			  0.2
+ * @modifiedBy		   kabturek
+ * @lastModified		 Wed Jun 18 17:52:54 CEST 2008
+ * @license			  http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 
 //mime_content_type is deprecated
 if (!function_exists('mime_content_type')) {
 	function mime_content_type($filename) {
-		$finfo    = finfo_open(FILEINFO_MIME);
+		$finfo	= finfo_open(FILEINFO_MIME);
 		$mimetype = finfo_file($finfo, $filename);
 		finfo_close($finfo);
 		return $mimetype;
@@ -38,9 +38,9 @@ if (!function_exists('mime_content_type')) {
  * SwiftEmailComponent class
  * this is a drop in replacement for CakePHP EmailComponent using the excellent SwiftMailer library
  * 
- * @uses                 EmailComponent
- * @package              
- * @subpackage           controllers.components
+ * @uses				 EmailComponent
+ * @package			  
+ * @subpackage		   controllers.components
  */
 
 App::import('Component', 'Email');
