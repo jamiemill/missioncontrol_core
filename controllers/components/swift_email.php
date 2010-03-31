@@ -114,19 +114,20 @@ class SwiftEmailComponent extends EmailComponent {
 				$this->_attachFiles();
 			}
 
-			if ($this->delivery == 'debug') {
+			if ($this->delivery == 'debug' || Configure::read('SwiftEmail.debug') == true) {
 				return $this->_debug();
 			}
 			$recipients = $this->_formatRecipients();
 			$from = $this->_formatAddress($this->from);
 
 			$number_sent = $this->Swift->send($this->Message, $recipients, new Swift_Address($from[0][0], $from[0][1]));
+
 		} catch (Swift_ConnectionException $e) {
 			$this->smtpError = "There was a problem communicating with SMTP: " . $e->getMessage();
-			//debug($this->smtpError);
+			$this->log($this->smtpError);
 		} catch (Swift_Message_MimeException $e) {
 			$this->smtpError = "There was an unexpected problem building the email:" . $e->getMessage();
-			//debug($this->smtpError);
+			$this->log($this->smtpError);
 		}
 
 		return $number_sent;
@@ -222,14 +223,17 @@ class SwiftEmailComponent extends EmailComponent {
 		if ($this->sendAs === 'both') {
 			$htmlContent = $content;
 
-			$content = $View->element('email' . DS . 'text' . DS . $this->template, array('content' => $content), true);
+			$this->htmlContent = $content;
+			$this->textContent = $content;
+			
 			$View->layoutPath = 'email' . DS . 'text';
-			$this->Message->attach(new Swift_Message_Part($View->renderLayout($content)));
+			$this->textContent = $View->renderLayout($View->element('email' . DS . 'text' . DS . $this->template, array('content' => $content), true));
+			$this->Message->attach(new Swift_Message_Part($this->textContent));
 
-
-			$content = $View->element('email' . DS . 'html' . DS . $this->template, array('content' => $htmlContent), true);
 			$View->layoutPath = 'email' . DS . 'html';
-			$this->Message->attach(new Swift_Message_Part($View->renderLayout($content), 'text/html'));
+			$this->htmlContent = $View->renderLayout($View->element('email' . DS . 'html' . DS . $this->template, array('content' => $this->htmlContent), true));
+			$this->Message->attach(new Swift_Message_Part($this->htmlContent, 'text/html'));
+
 			return true;
 
 		}
@@ -242,7 +246,8 @@ class SwiftEmailComponent extends EmailComponent {
 		}else{
 			$mime = 'text/html';
 		}
-		$this->Message->attach(new Swift_Message_Part($View->renderLayout($content), $mime));
+		$this->{$this->sendAs.'Content'} = $View->renderLayout($content);
+		$this->Message->attach(new Swift_Message_Part($this->{$this->sendAs.'Content'}, $mime));
 		return true;
 	}
 
@@ -304,10 +309,40 @@ class SwiftEmailComponent extends EmailComponent {
 			$smtp->setUsername($this->smtpOptions['username']);
 			$smtp->setPassword($this->smtpOptions['password']);
 		}
-
+		
 		// Return the swift mailer object.
 		$this->Swift = new Swift($smtp); 
 		return $this->Swift;
+	}
+	
+	function _debug() {
+		$nl = "\n";
+		$header = implode($nl, $this->__header);
+		$message = $this->__message;
+		$fm = '<!--';
+
+		if ($this->delivery == 'smtp') {
+			$fm .= sprintf('%s %s%s', 'Host:', $this->smtpOptions['host'], $nl);
+			$fm .= sprintf('%s %s%s', 'Port:', $this->smtpOptions['port'], $nl);
+			$fm .= sprintf('%s %s%s', 'Timeout:', $this->smtpOptions['timeout'], $nl);
+		}
+		$fm .= sprintf('%s %s%s', 'To:', $this->to, $nl);
+		$fm .= sprintf('%s %s%s', 'From:', $this->from, $nl);
+		$fm .= sprintf('%s %s%s', 'Subject:', $this->_encode($this->subject), $nl);
+		$fm .= sprintf('%s%3$s%3$s%s', 'Header:', $header, $nl);
+		$fm .= sprintf('%s%3$s%3$s%s', 'Parameters:', $this->additionalParams, $nl);
+		$fm .= '-->'.$nl.$nl;
+		
+		if(!empty($this->htmlContent)) {
+			$output = new File(TMP.'email.'.date('YmdHis').'.html', true);
+			$output->write($fm.$this->htmlContent);
+		}
+		if(!empty($this->textContent)) {
+			$output = new File(TMP.'email.'.date('YmdHis').'.txt', true);
+			$output->write($fm.$this->textContent);
+		}
+		
+		return true;
 	}
 
 }
