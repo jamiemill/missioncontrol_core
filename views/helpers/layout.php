@@ -252,14 +252,6 @@ class LayoutHelper extends AppHelper {
 		if(!isset($options['global'])) {
 			$options['global'] = true;
 		}
-
-		// Where suitable, set $this->pageTitle to the title text.
-		if($options['global'] === true) {
-			$view =& ClassRegistry::getObject('view');
-			if(empty($view->pageTitle)) {
-				$view->pageTitle = strip_tags($text);
-			}
-		}
 		
 		$out = '<h' . $options['level'] . '>' . $text . '</h' . $options['level'] . '>' . "\n";
 		return $out;

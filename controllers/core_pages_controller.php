@@ -48,7 +48,7 @@ class CorePagesController extends CoreAppController{
 		
 		$this->set('data', $item);
 		
-		$this->pageTitle = $item['CorePage']['title'];
+		$this->set('title_for_layout',$item['CorePage']['title']);
 		
 		$pagePath = $this->CorePage->getpath($item['CorePage']['id'],array('id'));
 		$pagePath = Set::extract('/CorePage/id',$pagePath);
