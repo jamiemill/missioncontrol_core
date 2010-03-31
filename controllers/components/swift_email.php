@@ -114,7 +114,7 @@ class SwiftEmailComponent extends EmailComponent {
 				$this->_attachFiles();
 			}
 
-			if ($this->delivery == 'debug' || Configure::read('SwiftEmail.debug') == true) {
+			if ($this->delivery == 'debug' || Configure::read('Site.SystemEmails.debug') == true) {
 				return $this->_debug();
 			}
 			$recipients = $this->_formatRecipients();

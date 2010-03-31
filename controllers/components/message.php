@@ -28,16 +28,16 @@ class MessageComponent extends Object {
 		);
 		
 		$this->robotSmtpOptions = array(
-			'port'=>Configure::read('Robot.SMTP.port'),
-			'type'=>Configure::read('Robot.SMTP.type'), // TODO: why this and the below?
-			'security'=>Configure::read('Robot.SMTP.type'),// TODO: why this and the above?
-			'host'=>Configure::read('Robot.SMTP.host'),
-			'username'=>Configure::read('Robot.SMTP.username'),
-			'password'=>Configure::read('Robot.SMTP.password'),
+			'port'=>Configure::read('Site.SystemEmails.smtpPort'),
+			'type'=>Configure::read('Site.SystemEmails.smtpType'), // TODO: why this and the below?
+			'security'=>Configure::read('Site.SystemEmails.smtpType'),// TODO: why this and the above?
+			'host'=>Configure::read('Site.SystemEmails.smtpHost'),
+			'username'=>Configure::read('Site.SystemEmails.smtpUsername'),
+			'password'=>Configure::read('Site.SystemEmails.smtpPassword'),
 			'timeout'=>'30'
 		);
 		
-		$this->SwiftEmail->delivery = 'smtp';
+		$this->SwiftEmail->delivery = Configure::read('Site.SystemEmails.delivery');
 		$this->SwiftEmail->sendAs = 'both';
 	}
 
@@ -59,7 +59,7 @@ class MessageComponent extends Object {
 		$this->SwiftEmail->smtpOptions = $this->robotSmtpOptions;
 		
 		$this->SwiftEmail->to = $data['User']['email'];
-		$this->SwiftEmail->from = Configure::read('Robot.fromAddress');
+		$this->SwiftEmail->from = Configure::read('Site.SystemEmails.from');
 		$this->SwiftEmail->subject = Configure::read('Site.title').' Account Activation';
 		$this->SwiftEmail->template = 'activation';
 		
@@ -77,8 +77,8 @@ class MessageComponent extends Object {
 		
 		$this->SwiftEmail->smtpOptions = $this->robotSmtpOptions;
 		
-		$this->SwiftEmail->to = Configure::read('Site.emailsTo');
-		$this->SwiftEmail->from = Configure::read('Robot.fromAddress');
+		$this->SwiftEmail->to = Configure::read('Site.SystemEmails.to');
+		$this->SwiftEmail->from = Configure::read('Site.SystemEmails.from');
 		$this->SwiftEmail->subject = Configure::read('Site.title').' : New Account for Approval';
 		$this->SwiftEmail->template = 'administrator_activation';
 		
@@ -96,7 +96,7 @@ class MessageComponent extends Object {
 		$this->SwiftEmail->smtpOptions = $this->robotSmtpOptions;
 		
 		$this->SwiftEmail->to = $options['to'];
-		$this->SwiftEmail->from = Configure::read('Robot.fromAddress');
+		$this->SwiftEmail->from = Configure::read('Site.SystemEmails.from');
 		$this->SwiftEmail->subject = Configure::read('Site.title').' Password Reset';
 		$this->SwiftEmail->template = 'password_reset';
 		

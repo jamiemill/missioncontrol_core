@@ -19,20 +19,21 @@ Configure::write('MissionControl.pageViewsFolder', APP . 'views' . DS . 'pages' 
 // These should be customised by overriding in {APP}.config/bootstrap.php
 
 Configure::write('Site.title', 'MissionControl Demo Site');
-Configure::write('Site.emailsTo','website@example.com');
 Configure::write('Site.allowPageParentContent', null); 									
 Configure::write('Site.extraThumbnailSizes', array(
 	//'thumbnail'=>array(200,200,1,'C'),
 	//'homepage'=>array(450,450,1,'C')
 ));
 
-Configure::write('Robot.fromAddress', 'Example <website@example.com>');
-Configure::write('Robot.SMTP.port',false); // (465 for gmail, false to auto-detect)
-Configure::write('Robot.SMTP.type',false); // (open, ssl, tls or false to autodetect)
-Configure::write('Robot.SMTP.host',null);
-Configure::write('Robot.SMTP.username','website@example.com');
-Configure::write('Robot.SMTP.password',null);
-Configure::write('SwiftEmail.debug',true);
+Configure::write('Site.SystemEmails.to','website@example.com');
+Configure::write('Site.SystemEmails.from', 'Example <website@example.com>');
+Configure::write('Site.SystemEmails.delivery','smtp'); // (smtp or mail)
+Configure::write('Site.SystemEmails.smtpPort',false); // (465 for gmail, false to auto-detect)
+Configure::write('Site.SystemEmails.smtpType',false); // (open, ssl, tls or false to autodetect)
+Configure::write('Site.SystemEmails.smtpHost',null);
+Configure::write('Site.SystemEmails.smtpUsername','website@example.com');
+Configure::write('Site.SystemEmails.smtpPassword',null);
+Configure::write('Site.SystemEmails.debug',true);
 
 Configure::write('User.Register.redirect',false);
 Configure::write('User.Login.fallbackRedirect','/admin/');
