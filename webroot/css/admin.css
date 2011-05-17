@@ -123,6 +123,7 @@ body.plain #body {
 	margin-left: 10px;
 	float: left;
 	display: inline;/*IE fix */
+	width: 1000px; /* to stop big items inside expanding it and it dropping on to a new line */
 }
 
 .main {
@@ -183,7 +184,6 @@ table.admin_listing th {
 }
 
 table.admin_listing td.actions{
-	width: 30%;
 }
 
 table.admin_listing td.actions a{
